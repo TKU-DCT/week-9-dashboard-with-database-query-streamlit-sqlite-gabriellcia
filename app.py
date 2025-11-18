@@ -23,7 +23,6 @@ else:
     query = "SELECT * FROM system_log"
     df = pd.read_sql_query(query, conn)
 
-    # Ubah kolom timestamp ke datetime (sesuaikan nama kolom kalau beda)
     if "timestamp" in df.columns:
         df["timestamp"] = pd.to_datetime(df["timestamp"])
 
@@ -32,7 +31,7 @@ else:
     # ============================
     st.subheader("Filter")
 
-    # ambil nilai unik dari kolom ping_status (UP/DOWN)
+  
     status_list = ["All"]
     if "ping_status" in df.columns:
         status_list += sorted(df["ping_status"].dropna().unique().tolist())
@@ -62,7 +61,7 @@ else:
     # ============================
     st.subheader("📈 System Usage Over Time")
 
-    # urutkan berdasarkan waktu kalau ada
+
     if "timestamp" in df.columns:
         df_chart = df.sort_values("timestamp").set_index("timestamp")
     else:
